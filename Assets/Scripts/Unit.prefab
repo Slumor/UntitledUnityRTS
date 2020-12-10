@@ -14,11 +14,12 @@ GameObject:
   - component: {fileID: 2572393723366415431}
   - component: {fileID: 1441915310816999288}
   - component: {fileID: -2391632411052531440}
+  - component: {fileID: 6454378878639648696}
   - component: {fileID: 5249940855625970690}
   - component: {fileID: -7070854549739756501}
   m_Layer: 9
   m_Name: Unit
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,8 +116,6 @@ MonoBehaviour:
   ai: {fileID: 0}
   movement: {fileID: 0}
   maxSpeed: 0
-  gatherRate: 2
-  carryCapacity: 8
 --- !u!114 &-2391632411052531440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +136,21 @@ MonoBehaviour:
   velocity: {x: 0, y: 0, z: 0}
   maxRotation: 45
   maxAngularAccel: 45
+--- !u!114 &6454378878639648696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572393723366415430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7aa17e435063724593cf3f4706cd98e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ai: {fileID: 0}
+  behaviour: {fileID: 0}
+  state: 0
 --- !u!114 &5249940855625970690
 MonoBehaviour:
   m_ObjectHideFlags: 0

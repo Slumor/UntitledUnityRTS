@@ -69,18 +69,20 @@ public class GlobalSelection : MonoBehaviour{
                 //Add a layer mask
                 if (Physics.Raycast(ray, out hit, 50000.0f, layerMask)) {
 
-                    if (Input.GetKey(KeyCode.LeftShift)) {
+                    if (hit.transform.gameObject.tag == "Unit") {
 
-                        selectedTable.addSelected(hit.transform.gameObject);
+                        if (Input.GetKey(KeyCode.LeftShift)) {
 
+                            selectedTable.addSelected(hit.transform.gameObject);
+
+                        }
+                        else {
+
+                            StartCoroutine(clearAllExcept(hit.transform.gameObject));
+
+
+                        }
                     }
-                    else {
-
-                        StartCoroutine(clearAllExcept(hit.transform.gameObject));
-
-
-                    }
-
 
                 }else { //Didn't hit
 
@@ -237,8 +239,9 @@ public class GlobalSelection : MonoBehaviour{
 
     private void OnTriggerEnter(Collider other) {
 
-
-        selectedTable.addSelected(other.gameObject);
+        if (other.gameObject.tag == "Unit") {
+            selectedTable.addSelected(other.gameObject);
+        }
 
     }
 

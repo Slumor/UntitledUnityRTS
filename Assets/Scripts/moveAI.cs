@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateAI : MonoBehaviour {
+public class moveAI : MonoBehaviour {
 
     public enum State { 
         Idle,
         Moving,
-        Attacking,
-        Gathering
-
     }
 
     public enum Order { 
@@ -31,15 +28,14 @@ public class StateAI : MonoBehaviour {
 
     public float maxSpeed = 10.0f;
 
-    public int gatherRate = 2;
-    public int carryCapacity = 8;
-    Node miningTarget;
+    //public int gatherRate = 2;
+    //public int carryCapacity = 8;
+    //Node miningTarget;
 
     private void Awake() {
 
         state = State.Idle;
         
-
     }
 
     // Start is called before the first frame update
@@ -48,9 +44,8 @@ public class StateAI : MonoBehaviour {
 
        // movement = gameObject.GetComponent<MovementControl>();
         ai = gameObject.GetComponent<AIBehaviour>();
-        movement.maxSpeed = maxSpeed;
-
-        
+        movement = gameObject.GetComponent<MovementControl>();
+   
     }
 
     
@@ -60,27 +55,6 @@ public class StateAI : MonoBehaviour {
         switch (state) {
             default:
             case State.Idle:
-                break;
-            case State.Attacking:
-                break;
-            case State.Gathering:
-
-                Destroy(seek);
-                //Check if you're next to the node
-
-
-                //If not, move back to it
-
-
-                //If so, start mining
-                StartCoroutine(mine());
-                
-                
-
-
-
-
-
                 break;
             case State.Moving:
 
@@ -105,10 +79,6 @@ public class StateAI : MonoBehaviour {
                    state = State.Idle;
 
                 }
-
-
-
-
                 break;
         
         }
@@ -122,22 +92,22 @@ public class StateAI : MonoBehaviour {
     }
 
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Node" && order == Order.Gather) {
+    //private void OnTriggerEnter(Collider other) {
+      //  if (other.tag == "Node" && order == Order.Gather) {
 
-            state = State.Gathering;
-            movement.velocity = Vector3.zero;
-            miningTarget = other.gameObject.GetComponent<Node>();
+      //      state = State.Gathering;
+      //      movement.velocity = Vector3.zero;
+      //      miningTarget = other.gameObject.GetComponent<Node>();
 
-        }
-    }
+      //  }
+   // }
 
-    IEnumerator mine() {
+    //IEnumerator mine() {
 
-        yield return new WaitForSeconds(2);
-        miningTarget.gather();
-        Debug.Log(miningTarget.resources);
+      //  yield return new WaitForSeconds(2);
+      //  miningTarget.gather();
+      //  Debug.Log(miningTarget.resources);
 
-    }
+   // }
 
 }

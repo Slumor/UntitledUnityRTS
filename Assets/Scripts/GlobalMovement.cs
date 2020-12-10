@@ -29,44 +29,22 @@ public class GlobalMovement : MonoBehaviour {
                 if (Physics.Raycast(ray, out hit, 50000.0f, 1<<8)) {
                     
 
-                    GameObject unit = pair.Value;
-                    AIBehaviour behaviour = unit.GetComponent<AIBehaviour>();
-                    StateAI ai = unit.GetComponent<StateAI>();
-                    ai.movement = unit.GetComponent<MovementControl>();
+                    GameObject gameobj = pair.Value;
+                    AIBehaviour behaviour = gameobj.GetComponent<AIBehaviour>();
+            
+
+                    Unit unit = gameobj.GetComponent<Unit>();
 
                     //behaviour.dest = Vector3.zero;
                     //behaviour.target = null;
 
-                    //If it hits a node
-                    if (hit.collider.gameObject.tag == "Node") {
-
-                        //Debug.Log("Node");
-                        ai.state = StateAI.State.Moving;
-                        ai.order = StateAI.Order.Gather;
-                        behaviour.target = hit.collider.gameObject;
-                        
 
 
-                    }else {
-
-                        
-                        ai.order = StateAI.Order.Move;
+                        unit.state = Unit.State.moving;
 
                         behaviour.dest = hit.point;
                        
-                        //ai.dest = hit.point;
-
-                        //
-
-                        // movement.velocity = Vector3.zero;
-                        ai.state = StateAI.State.Moving;
-
-                    }
-
-                   
-
-
-
+                      
                 }
 
                 
