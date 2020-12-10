@@ -64,4 +64,8 @@ public class AIBehaviour : MonoBehaviour
     
     }
 
+    public void stop() {
+        agent.stop();
+    }
+
 }

@@ -62,7 +62,7 @@ public class moveAI : MonoBehaviour {
 
                 //HERE
 
-                if (gameObject.GetComponent<Seek>() == null) {
+                if (gameObject.GetComponent<Seek>() == null) { 
                     seek = gameObject.AddComponent<Seek>();
                 }
 
@@ -72,8 +72,7 @@ public class moveAI : MonoBehaviour {
 
 
                  if ((gameObject.transform.position - seek.dest).magnitude < 1) {
-                //Stop
-                   Debug.Log("Arrived");
+                    //Stop 
                     movement.stop();
                     Destroy(seek);
                    state = State.Idle;
@@ -85,6 +84,7 @@ public class moveAI : MonoBehaviour {
         
     }
 
+    
 
 
     private void OnDrawGizmos() {

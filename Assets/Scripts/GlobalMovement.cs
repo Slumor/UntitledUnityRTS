@@ -39,8 +39,9 @@ public class GlobalMovement : MonoBehaviour {
                     //behaviour.target = null;
 
 
-
+                        
                         unit.state = Unit.State.moving;
+                        behaviour.stop();
 
                         behaviour.dest = hit.point;
                        

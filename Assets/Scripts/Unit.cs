@@ -34,6 +34,7 @@ public class Unit : Char{
 
                 if (ai.state != moveAI.State.Moving) {
                     ai.state = moveAI.State.Moving;
+                    
                 }
 
                 break;
