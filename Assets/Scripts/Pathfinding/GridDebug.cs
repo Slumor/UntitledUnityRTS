@@ -10,6 +10,9 @@ public class GridDebug : MonoBehaviour {
     public bool displayGrid;
     public GridController gridController;
 
+    public enum FlowFieldDisplayType { None, AllIcons, DestinationIcon, CostField, IntegrationField };
+    public FlowFieldDisplayType curDisplayType;
+
     public void SetFlowField(FlowField newFlowField) {
 
         curFlowField = newFlowField;
@@ -34,10 +37,23 @@ public class GridDebug : MonoBehaviour {
         GUIStyle style = new GUIStyle(GUI.skin.label);
         style.alignment = TextAnchor.MiddleCenter;
 
-        foreach (Cell curCell in curFlowField.grid) {
+        switch (curDisplayType) {
+            case FlowFieldDisplayType.CostField:
 
-            Handles.Label(curCell.worldPos, curCell.cost.ToString(), style);
-        
+                foreach (Cell curCell in curFlowField.grid) {
+                    Handles.Label(curCell.worldPos, curCell.cost.ToString(), style);
+                }
+                break;
+
+            case FlowFieldDisplayType.IntegrationField:
+
+                foreach (Cell curCell in curFlowField.grid) {
+                    Handles.Label(curCell.worldPos, curCell.bestCost.ToString(), style);
+                }
+                break;
+
+            default:
+                break;
         }
 
 

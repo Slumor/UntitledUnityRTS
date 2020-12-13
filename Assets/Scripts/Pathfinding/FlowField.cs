@@ -10,6 +10,9 @@ public class FlowField {
 
     private float cellDiameter;
 
+    //Set this in moveclass
+    public Cell destinationCell;
+
     public FlowField(float _cellRadius, Vector2Int _gridSize) {
 
         cellRadius = _cellRadius;
@@ -75,10 +78,90 @@ public class FlowField {
         }
     
     
+    }
+
+    public void CreateIntegrationField(Cell _destinationCell) {
+
+        destinationCell = _destinationCell;
+
+        destinationCell.cost = 0;
+        destinationCell.bestCost = 0;
+
+        Queue<Cell> cellsToCheck = new Queue<Cell>();
+
+        cellsToCheck.Enqueue(destinationCell);
+
+        while (cellsToCheck.Count > 0) {
+
+            Cell curcell = cellsToCheck.Dequeue();
+            List<Cell> curNeighbours = GetNeighbourCells(curcell.gridIndex, GridDirection.CardinalDirections);
+
+            foreach (Cell curNeighbour in curNeighbours) {
+
+                if (curNeighbour.cost == byte.MaxValue) { continue; }
+
+                if (curNeighbour.cost + curcell.bestCost < curNeighbour.bestCost) {
+
+                    curNeighbour.bestCost = (ushort)(curNeighbour.cost + curcell.bestCost);
+                    cellsToCheck.Enqueue(curNeighbour);
+                
+                }
+            
+            }
+        }
+    
+    }
+
+    private List<Cell> GetNeighbourCells(Vector2Int nodeIndex, List<GridDirection> directions) {
+
+
+        List<Cell> neighbourCells = new List<Cell>();
+
+        foreach (Vector2Int curDirection in directions) {
+
+            Cell newNeighbour = GetCellAtRelativePos(nodeIndex, curDirection);
+
+            if (newNeighbour != null) {
+
+                neighbourCells.Add(newNeighbour);
+
+            }
+        
+        
+        }
+
+        return neighbourCells;
+    
+    }
+
+    private Cell GetCellAtRelativePos(Vector2Int originPos, Vector2Int relativePos) {
+
+
+        Vector2Int finalPos = originPos + relativePos;
+
+        if (finalPos.x < 0 || finalPos.x >= gridSize.x || finalPos.y < 0 || finalPos.y >= gridSize.y) {
+
+            return null;
+
+        }
+
+
+        else { return grid[finalPos.x, finalPos.y]; }
     
     
     
-    
+    }
+
+    public Cell GetCellFromWorldPos(Vector3 worldPos) {
+        float percentX = worldPos.x / (gridSize.x * cellDiameter);
+        float percentY = worldPos.z / (gridSize.y * cellDiameter);
+
+        percentX = Mathf.Clamp01(percentX);
+        percentY = Mathf.Clamp01(percentY);
+
+        int x = Mathf.Clamp(Mathf.FloorToInt((gridSize.x) * percentX), 0, gridSize.x - 1);
+        int y = Mathf.Clamp(Mathf.FloorToInt((gridSize.y) * percentY), 0, gridSize.y - 1);
+        return grid[x, y];
     }
 
 }

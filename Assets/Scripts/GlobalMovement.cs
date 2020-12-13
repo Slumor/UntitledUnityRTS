@@ -5,6 +5,7 @@ using UnityEngine;
 public class GlobalMovement : MonoBehaviour {
     private SelectedDictionary selectedTable;
     private Dictionary<int, GameObject> selected;
+    private FlowField flowfield;
 
     
 
@@ -13,6 +14,9 @@ public class GlobalMovement : MonoBehaviour {
     void Start() {
         selectedTable = GetComponent<SelectedDictionary>();
         selected = selectedTable.getDictionary();
+
+        
+        
     }
 
     // Update is called once per frame
@@ -20,6 +24,9 @@ public class GlobalMovement : MonoBehaviour {
 
         if (Input.GetMouseButton(1)) {
             foreach (KeyValuePair<int, GameObject> pair in selected) {
+
+                //Will need to change this - each unit will need to store their own flow field
+                flowfield = GetComponent<GridController>().curFlowField;
 
 
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -31,6 +38,10 @@ public class GlobalMovement : MonoBehaviour {
 
                     GameObject gameobj = pair.Value;
                     AIBehaviour behaviour = gameobj.GetComponent<AIBehaviour>();
+
+                    //Flow field handling
+                    Cell destinationCell = flowfield.GetCellFromWorldPos(hit.point);
+                    flowfield.CreateIntegrationField(destinationCell);
             
 
                     Unit unit = gameobj.GetComponent<Unit>();
