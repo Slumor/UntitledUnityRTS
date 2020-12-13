@@ -12,7 +12,7 @@ public class GridController : MonoBehaviour
 
 
 
-    private void InitializeFlowField() {
+    public void InitializeFlowField() {
 
         curFlowField = new FlowField(cellRadius, gridSize);
         curFlowField.CreateGrid();
@@ -21,19 +21,7 @@ public class GridController : MonoBehaviour
 
     }
 
-    private void Update() {
-
-        if (Input.GetKeyDown(KeyCode.Space)) {
-
-
-            InitializeFlowField();
-            curFlowField.CreateCostField();
-
-        }
-    
-    
-    
-    }
+ 
 
     
 }

@@ -28,8 +28,12 @@ public class GlobalMovement : MonoBehaviour {
             foreach (KeyValuePair<int, GameObject> pair in selected) {
 
                 //Will need to change this - each unit will need to store their own flow field
+                //Make a new GridController?
+
+                //If we make a new controller gotta make sure we set the x and the y
                 gridController = GetComponent<GridController>();
-                flowfield = gridController.curFlowField;
+                
+                
 
 
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -43,11 +47,20 @@ public class GlobalMovement : MonoBehaviour {
                     AIBehaviour behaviour = gameobj.GetComponent<AIBehaviour>();
 
                     //Flow field handling
+                    
+
+                    gridController.InitializeFlowField();
+
+                    flowfield = gridController.curFlowField;
+
+                    flowfield.CreateCostField();
+
                     Cell destinationCell = flowfield.GetCellFromWorldPos(hit.point);
 
                     flowfield.CreateIntegrationField(destinationCell);
                     flowfield.CreateFlowField();
             
+
 
                     Unit unit = gameobj.GetComponent<Unit>();
 
