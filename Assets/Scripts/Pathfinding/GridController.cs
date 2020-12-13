@@ -16,7 +16,7 @@ public class GridController : MonoBehaviour
 
         curFlowField = new FlowField(cellRadius, gridSize);
         curFlowField.CreateGrid();
-        gridDebug.SetFlowField(curFlowField);
+        //gridDebug.SetFlowField(curFlowField);
 
 
     }

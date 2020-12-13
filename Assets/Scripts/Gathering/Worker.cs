@@ -7,11 +7,11 @@ public class Worker : Char {
     protected override int defaultHealth { get { return 100; } }
 
     public State state;
+    bool gatherScript;
     public enum State {
         idle,
-        moving,
         gathering,
-        depositing       
+         
     }
 
 
@@ -20,6 +20,7 @@ public class Worker : Char {
     void Start()
     {
         state = State.gathering;
+        gatherScript = false;
     }
 
     // Update is called once per frame
@@ -28,17 +29,16 @@ public class Worker : Char {
             default:
             case State.idle:
                 break;
-            case State.moving:
-                break;
             case State.gathering:
-                break;
-            case State.depositing:
+
+                if (!gatherScript) {
+                    gameObject.AddComponent<Gathering>();
+                    gatherScript = true;
+                }
+
                 break;
 
 
-        
-        
-        
         
         }
 
