@@ -42,6 +42,7 @@ public class GlobalMovement : MonoBehaviour {
                     //Flow field handling
                     Cell destinationCell = flowfield.GetCellFromWorldPos(hit.point);
                     flowfield.CreateIntegrationField(destinationCell);
+                    flowfield.CreateFlowField();
             
 
                     Unit unit = gameobj.GetComponent<Unit>();
