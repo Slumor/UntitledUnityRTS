@@ -17,6 +17,9 @@ public class AIBehaviour : MonoBehaviour
     public float maxRotation = 5.0f;
     public float maxAngularAccel = 5.0f;
 
+    public FlowField flow;
+    public GridController gridController;
+
     public virtual void Start() {
 
 
@@ -28,10 +31,17 @@ public class AIBehaviour : MonoBehaviour
 
     public virtual void Update() {
 
-        //print(GetSteering().linear);
-        agent.setSteering(GetSteering(), weight);
+        //if (gridController != null) {
+            //Cell cellBelow = gridController.curFlowField.GetCellFromWorldPos(gameObject.transform.position);
+            //Vector3 moveDirection = new Vector3(cellBelow.bestDirection.vector.x, 0, cellBelow.bestDirection.vector.y);
 
-    
+            //dest = moveDirection;
+
+        //}
+            //print(GetSteering().linear);
+            agent.setSteering(GetSteering(), weight);
+
+        
     }
 
     public float MapToRange(float rotation) {

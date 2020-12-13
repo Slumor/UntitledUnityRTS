@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GlobalMovement : MonoBehaviour {
+
+    private GridController gridController;
     private SelectedDictionary selectedTable;
     private Dictionary<int, GameObject> selected;
     private FlowField flowfield;
@@ -26,7 +28,8 @@ public class GlobalMovement : MonoBehaviour {
             foreach (KeyValuePair<int, GameObject> pair in selected) {
 
                 //Will need to change this - each unit will need to store their own flow field
-                flowfield = GetComponent<GridController>().curFlowField;
+                gridController = GetComponent<GridController>();
+                flowfield = gridController.curFlowField;
 
 
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -41,11 +44,16 @@ public class GlobalMovement : MonoBehaviour {
 
                     //Flow field handling
                     Cell destinationCell = flowfield.GetCellFromWorldPos(hit.point);
+
                     flowfield.CreateIntegrationField(destinationCell);
                     flowfield.CreateFlowField();
             
 
                     Unit unit = gameobj.GetComponent<Unit>();
+
+                    ///Don't like this
+                   
+                    unit.ai.gridController = gridController;
 
                     //behaviour.dest = Vector3.zero;
                     //behaviour.target = null;
@@ -53,9 +61,9 @@ public class GlobalMovement : MonoBehaviour {
 
                         
                         unit.state = Unit.State.moving;
-                        behaviour.stop();
+                        //behaviour.stop();
 
-                        behaviour.dest = hit.point;
+                        //behaviour.dest = hit.point;
                        
                       
                 }

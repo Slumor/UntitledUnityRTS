@@ -7,6 +7,7 @@ public abstract class Char : MonoBehaviour
     //Every type of character should have MoveAI - but not every type should have access to all states
     public moveAI ai;
     public AIBehaviour behaviour;
+    public FlowField flowfield;
 
     
 

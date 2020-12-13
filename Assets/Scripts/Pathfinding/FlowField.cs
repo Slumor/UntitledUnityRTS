@@ -162,6 +162,18 @@ public class FlowField {
     
     }
 
+    public Vector3 getNeighbour(Cell cellBelow, GridDirection dir) {
+
+       Vector2Int index = cellBelow.gridIndex;
+
+        Cell bestNeighbour = GetCellAtRelativePos(index, dir);
+
+        return bestNeighbour.worldPos;
+    
+    
+    
+    }
+
     private Cell GetCellAtRelativePos(Vector2Int originPos, Vector2Int relativePos) {
 
 

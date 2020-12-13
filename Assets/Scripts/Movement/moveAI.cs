@@ -24,6 +24,9 @@ public class moveAI : MonoBehaviour {
 
     public AIBehaviour ai;
 
+    
+    public GridController gridController;
+
     public MovementControl movement;
 
     public float maxSpeed = 10.0f;
@@ -41,7 +44,7 @@ public class moveAI : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-
+        
        // movement = gameObject.GetComponent<MovementControl>();
         ai = gameObject.GetComponent<AIBehaviour>();
         movement = gameObject.GetComponent<MovementControl>();
@@ -66,18 +69,28 @@ public class moveAI : MonoBehaviour {
                     seek = gameObject.AddComponent<Seek>();
                 }
 
+                if (gridController.curFlowField == null) { return; }
+
+                Cell cellBelow = gridController.curFlowField.GetCellFromWorldPos(gameObject.transform.position);
+                Vector3 moveDirection = new Vector3(cellBelow.bestDirection.vector.x, 0, cellBelow.bestDirection.vector.y);
+
+                ai.dest = gridController.curFlowField.getNeighbour(cellBelow, cellBelow.bestDirection);
+               
+                 
+
+
                 seek.dest = ai.dest;
                 seek.target = ai.target;
 
 
 
-                 if ((gameObject.transform.position - seek.dest).magnitude < 1) {
+                 //if ((gameObject.transform.position - seek.dest).magnitude < 1) {
                     //Stop 
-                    movement.stop();
-                    Destroy(seek);
-                   state = State.Idle;
+                    //movement.stop();
+                    //Destroy(seek);
+                   //state = State.Idle;
 
-                }
+                //}
                 break;
         
         }
