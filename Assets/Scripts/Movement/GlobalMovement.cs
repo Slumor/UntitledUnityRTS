@@ -47,6 +47,7 @@ public class GlobalMovement : MonoBehaviour {
                 if (Physics.Raycast(ray, out hit, 50000.0f, 1<<8)) {
 
                     gridController = GetComponent<GridController>();
+
                     GameObject gameobj = pair.Value;
                     AIBehaviour behaviour = gameobj.GetComponent<AIBehaviour>();
 
@@ -80,7 +81,7 @@ public class GlobalMovement : MonoBehaviour {
 
 
                         
-                        unit.state = Unit.State.moving;
+                    unit.state = Unit.State.moving;
                         //behaviour.stop();
 
                         //behaviour.dest = hit.point;

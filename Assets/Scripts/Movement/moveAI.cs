@@ -64,7 +64,7 @@ public class moveAI : MonoBehaviour {
                 break;
             case State.Moving:
 
-
+                Debug.Log("MoveAI Triggered");
 
                 //HERE
 
@@ -92,6 +92,15 @@ public class moveAI : MonoBehaviour {
                    movement.stop();
                    Destroy(seek);
                    state = State.Idle;
+
+                    if (order.Equals(Order.Gather)) { 
+                        //Set the order to move to deposit
+                    
+                    
+                    
+                    }
+
+
 
                 }
                 break;

@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeTracker : MonoBehaviour{
+public class Depot : MonoBehaviour
+{
 
-    //Tracks marked nodes
-
-    public ArrayList nodes = new ArrayList();
-
+    public Vector3 gatherPoint;
     // Start is called before the first frame update
-    void Start()
-    {
+    void Start(){
+
+        Vector3 pos = gameObject.transform.position;
         
-    }
+        gatherPoint = new Vector3(pos.x + 10f, pos.y, pos.z);
+
+}
 
     // Update is called once per frame
     void Update()
