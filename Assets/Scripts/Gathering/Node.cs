@@ -8,15 +8,20 @@ public abstract class Node : MonoBehaviour
     public int resources;
     public string type;
 
-    public int gather() {
+    public int gather(int gather) {
 
-        if (resources != 0) {
-            resources = resources - 1;
-            return 1;
+        if (resources - gather <= 0) {
+            int remainder = resources;
+            resources = 0;
+            return remainder;
+            
+
         }
         else {
 
-            return 0;
+            resources = resources - gather;
+            return gather;
+            
         }
         
     }

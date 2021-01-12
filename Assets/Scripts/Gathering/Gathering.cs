@@ -8,14 +8,22 @@ public class Gathering : MonoBehaviour
     [SerializeField] private Depot depot;
 
     private Worker worker;
-    private Vector3 dest;
+    private Vector3 goldDest;
+    private Vector3 depotDest;
+
     private moveAI moveai;
+
+
+    bool Mrunning;
+
+    bool Drunning;
+
+    bool moving;
 
     private AIBehaviour aIBehaviour;
 
     private GridController gridController;
-    private FlowField flowfield;
-
+    
 
 
     public State state;
@@ -28,17 +36,23 @@ public class Gathering : MonoBehaviour
 
 
     private void Awake() {
+
+        Drunning = false;
+        Mrunning = false;
+        moving = false;
+
         moveai = gameObject.GetComponent<moveAI>();
         worker = gameObject.GetComponent<Worker>();
-        aIBehaviour = gameObject.GetComponent<AIBehaviour>();
 
 
-        dest = goldnode.gameObject.transform.position;
+
+        goldDest = goldnode.gatherPoint;
+        depotDest = depot.gatherPoint;
 
     }
 
     //Probably want to put this somewhere better
-    private void genFlowField(Vector3 desti) {
+    private FlowField genFlowField(Vector3 desti) {
 
         GameObject sys = GameObject.Find("EventSystem");
 
@@ -46,7 +60,7 @@ public class Gathering : MonoBehaviour
 
         gridController.InitializeFlowField();
 
-        flowfield = gridController.curFlowField;
+        FlowField flowfield = gridController.curFlowField;
 
         flowfield.CreateCostField();
 
@@ -54,6 +68,8 @@ public class Gathering : MonoBehaviour
 
         flowfield.CreateIntegrationField(destinationCell);
         flowfield.CreateFlowField();
+
+        return flowfield;
 
 
 
@@ -65,29 +81,140 @@ public class Gathering : MonoBehaviour
     void Start(){
 
 
+    }
 
-        if (worker.carrying == 0) {
+    public void moveTo(Vector3 destination) {
 
-           //TODO - Refactor this
 
-            genFlowField(dest);
-            
-            //Move to a gold node
-            moveai.finalDest = dest;
-            //worker.ai.finalDest = dest;
-            moveai.curFlowField = flowfield;
-            //worker.ai.curFlowField = flowfield;
-            moveai.state = moveAI.State.Moving;
-            //worker.state = Worker.State.moving;
 
-            moveai.ai = aIBehaviour;
+        moving = true;
 
-        }
+        FlowField ff = genFlowField(destination);
+
+        //Move to a gold node
+        moveai.finalDest = destination;
+        //worker.ai.finalDest = dest;
+        moveai.curFlowField = ff;
+        //worker.ai.curFlowField = flowfield;
+        moveai.state = moveAI.State.Moving;
+        //worker.state = Worker.State.moving;
+
+   
+
+
+
+
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
+
+        switch (state) {
+
+            default:
+            case State.idle:
+                break;
+
+            case State.gathering:
+
+
+
+                if (!moving && !moveai.arrived) {
+
+                    moveTo(goldDest);
+
+                }
+                
+                
+                if (moveai.arrived) {
+
+                    moving = false;
+                    
+                    if (!Mrunning) {
+                        
+                        StartCoroutine(mining());
+                        
+                    }
+
+
+                    if (worker.carrying >= worker.capacity) {
+                        moveai.arrived = false;
+                        state = State.depositing;
+                    
+                    }
+
+                }
+                break;
+
+            case State.depositing:
+
+                if (!moving && !moveai.arrived) {
+                   
+                    
+
+                    moveTo(depotDest);
+
+                }
+
+                if (moveai.arrived) {
+                    moving = false;
+
+                    if (!Drunning) { StartCoroutine(depositing());}
+                    
+                
+                
+                
+                }
+
+                if (worker.carrying == 0) {
+                    moveai.arrived = false;
+                    state = State.gathering;
+                
+                }
+
+
+
+                break;
+
+        
+        
+        
+        
+        
+        
+        
+        }
         
     }
+
+    IEnumerator mining() {
+        Mrunning = true;
+        //Print the time of when the function is first called.
+
+        
+        worker.carrying += goldnode.gather(5);
+        
+        
+        //yield on a new YieldInstruction that waits for 5 seconds.
+        yield return new WaitForSeconds(2);
+
+        //After we have waited 5 seconds print the time again.
+
+
+        Mrunning = false;
+    }
+
+    IEnumerator depositing() {
+        Drunning = true;
+
+        yield return new WaitForSeconds(2);
+
+        worker.carrying += depot.deposit(worker.carrying);
+        worker.carrying -= worker.carrying;
+        
+
+
+        Drunning = false;
+    }
+
 }

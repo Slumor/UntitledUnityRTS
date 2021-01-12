@@ -22,6 +22,8 @@ public class moveAI : MonoBehaviour {
 
     public Seek seek;
 
+    public bool arrived;
+
     public AIBehaviour ai;
 
     
@@ -47,7 +49,7 @@ public class moveAI : MonoBehaviour {
     // Start is called before the first frame update
     void Start()
     {
-        
+        arrived = false;
        // movement = gameObject.GetComponent<MovementControl>();
         ai = gameObject.GetComponent<AIBehaviour>();
         movement = gameObject.GetComponent<MovementControl>();
@@ -64,9 +66,7 @@ public class moveAI : MonoBehaviour {
                 break;
             case State.Moving:
 
-                Debug.Log("MoveAI Triggered");
-
-                //HERE
+              
 
                 if (gameObject.GetComponent<Seek>() == null) { 
                     seek = gameObject.AddComponent<Seek>();
@@ -93,12 +93,7 @@ public class moveAI : MonoBehaviour {
                    Destroy(seek);
                    state = State.Idle;
 
-                    if (order.Equals(Order.Gather)) { 
-                        //Set the order to move to deposit
-                    
-                    
-                    
-                    }
+                   arrived = true;
 
 
 

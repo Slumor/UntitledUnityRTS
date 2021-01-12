@@ -5,7 +5,9 @@ using UnityEngine;
 public class Worker : Char {
 
     protected override int defaultHealth { get { return 100; } }
+
     public int carrying;
+    [SerializeField] public int capacity;
 
     public State state;
     bool gatherScript;
@@ -22,9 +24,10 @@ public class Worker : Char {
     // Start is called before the first frame update
     void Start()
     {
+        carrying = 0;
         state = State.gathering;
         gatherScript = false;
-        carrying = 0;
+       
     }
 
     // Update is called once per frame

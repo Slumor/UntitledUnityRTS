@@ -765,6 +765,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 703745937634422422, guid: 25f622cca80fde34dbd7a68863a3db5e,
+        type: 3}
+      propertyPath: capacity
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2781770251753529958, guid: 25f622cca80fde34dbd7a68863a3db5e,
         type: 3}
       propertyPath: m_RootOrder
@@ -783,7 +788,7 @@ PrefabInstance:
     - target: {fileID: 2781770251753529958, guid: 25f622cca80fde34dbd7a68863a3db5e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 35.670418
+      value: 7.51
       objectReference: {fileID: 0}
     - target: {fileID: 2781770251753529958, guid: 25f622cca80fde34dbd7a68863a3db5e,
         type: 3}
@@ -862,7 +867,7 @@ PrefabInstance:
     - target: {fileID: 2572393723366415450, guid: 55933205bbb534c4daa023200552aefd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.416975
+      value: 21.31
       objectReference: {fileID: 0}
     - target: {fileID: 2572393723366415450, guid: 55933205bbb534c4daa023200552aefd,
         type: 3}
@@ -936,7 +941,7 @@ PrefabInstance:
     - target: {fileID: 2636071422798499806, guid: 547e164bb0e6fed41961eea252b33266,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.33
+      value: 1.54
       objectReference: {fileID: 0}
     - target: {fileID: 2636071422798499806, guid: 547e164bb0e6fed41961eea252b33266,
         type: 3}
@@ -982,6 +987,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Depot
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032610175304683471, guid: 547e164bb0e6fed41961eea252b33266,
+        type: 3}
+      propertyPath: gatherPoint.x
+      value: 15.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032610175304683471, guid: 547e164bb0e6fed41961eea252b33266,
+        type: 3}
+      propertyPath: gatherPoint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7032610175304683471, guid: 547e164bb0e6fed41961eea252b33266,
+        type: 3}
+      propertyPath: gatherPoint.z
+      value: 14.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 547e164bb0e6fed41961eea252b33266, type: 3}
