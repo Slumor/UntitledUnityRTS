@@ -24,4 +24,35 @@ public class NodeTracker : MonoBehaviour{
     {
         
     }
+
+    public static GameObject closestObject(List<GameObject> objects, Transform origin) {
+
+        
+
+        GameObject bestObject = null;
+        float closestDistanceSqr = Mathf.Infinity;
+
+        foreach (GameObject Node in objects) {
+
+            Vector3 directionToObject = Node.transform.position - origin.position;
+
+            float dSqrToNode = directionToObject.sqrMagnitude;
+
+            if (dSqrToNode < closestDistanceSqr) {
+
+                closestDistanceSqr = dSqrToNode;
+                bestObject = Node;
+
+
+            }
+
+
+        }
+
+
+
+
+        return bestObject;
+
+    }
 }

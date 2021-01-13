@@ -119,7 +119,12 @@ public class Gathering : MonoBehaviour
 
                     if (goldDest == null) {
 
-                        goldDest = closestGoldNode();
+                        NodeTracker t = sys.GetComponent<NodeTracker>();
+
+                        List<GameObject> goldNodes = t.goldNodes;
+
+
+                        goldDest = NodeTracker.closestObject(goldNodes, this.transform);
                         goldnode = goldDest.GetComponent<GoldNode>();
 
                         
@@ -199,38 +204,7 @@ public class Gathering : MonoBehaviour
         
     }
 
-    public GameObject closestGoldNode() {
-
-        NodeTracker t = sys.GetComponent<NodeTracker>();
-
-        List<GameObject> goldNodes = t.goldNodes;
-
-        GameObject bestNode = null;
-        float closestDistanceSqr = Mathf.Infinity;
-
-        foreach (GameObject Node in goldNodes) {
-
-            Vector3 directionToNode = Node.transform.position - transform.position;
-
-            float dSqrToNode = directionToNode.sqrMagnitude;
-
-            if (dSqrToNode < closestDistanceSqr) {
-
-                closestDistanceSqr = dSqrToNode;
-                bestNode = Node;
-
-            
-            }
-
-        
-        }
-
-
-
-
-        return bestNode;
-
-    }
+    
 
     IEnumerator mining() {
         Mrunning = true;
