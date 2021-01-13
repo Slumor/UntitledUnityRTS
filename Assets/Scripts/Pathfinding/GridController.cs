@@ -59,6 +59,19 @@ public class GridController : MonoBehaviour
 
     }
 
+    public Cell GetCellFromWorldPos(Vector3 worldPos) {
+        float percentX = worldPos.x / (gridSize.x * cellDiameter);
+        float percentY = worldPos.z / (gridSize.y * cellDiameter);
+
+        percentX = Mathf.Clamp01(percentX);
+        percentY = Mathf.Clamp01(percentY);
+
+        int x = Mathf.Clamp(Mathf.FloorToInt((gridSize.x) * percentX), 0, gridSize.x - 1);
+        int y = Mathf.Clamp(Mathf.FloorToInt((gridSize.y) * percentY), 0, gridSize.y - 1);
+        return grid[x, y];
+    }
+
+
 
 
 }

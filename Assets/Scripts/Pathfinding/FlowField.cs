@@ -49,15 +49,6 @@ public class FlowField {
     //If adding new objects - add them here
 
 
-    public FlowField generateField(Cell _dest){
-        CreateCostField();
-        CreateIntegrationField(_dest);
-        CreateFlowField();
-
-        return this;
-
-    }
-
 
 
 

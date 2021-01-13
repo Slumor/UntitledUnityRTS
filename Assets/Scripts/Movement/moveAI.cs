@@ -26,8 +26,6 @@ public class moveAI : MonoBehaviour {
 
     public AIBehaviour ai;
 
-    
-    public GridController gridController;
     public FlowField curFlowField;
 
     public MovementControl movement;
