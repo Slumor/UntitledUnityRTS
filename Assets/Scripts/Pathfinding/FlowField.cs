@@ -20,12 +20,12 @@ public class FlowField {
         gridSize = _gridSize;
 
         //grid = _grid;
-        CreateGrid();
+        //CreateGrid();
 
 
     }
 
-    public void CreateGrid() {
+   /* public void CreateGrid() {
 
         grid = new Cell[gridSize.x, gridSize.y];
 
@@ -44,7 +44,7 @@ public class FlowField {
     
     
     
-    }
+    }*/
 
     //If adding new objects - add them here
 
