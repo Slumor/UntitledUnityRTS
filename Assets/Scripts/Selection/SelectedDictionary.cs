@@ -13,7 +13,7 @@ public class SelectedDictionary : MonoBehaviour{
         if (!(selectedTable.ContainsKey(id))) {
 
             selectedTable.Add(id, go);
-            go.AddComponent<SelectionComponent>();
+            //go.AddComponent<SelectionComponent>();
         
         }
     
@@ -21,7 +21,7 @@ public class SelectedDictionary : MonoBehaviour{
 
     public void deselect(int id) {
 
-        Destroy(selectedTable[id].GetComponent<SelectionComponent>());
+        //Destroy(selectedTable[id].GetComponent<SelectionComponent>());
         selectedTable.Remove(id);
     }
 

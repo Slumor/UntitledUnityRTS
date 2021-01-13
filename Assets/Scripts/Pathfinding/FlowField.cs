@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlowField {
 
-    public Cell[,] grid { get; private set; }
+    public Cell[,] grid;
     public Vector2Int gridSize { get; private set; }
     public float cellRadius { get; private set; }
 
@@ -18,8 +18,11 @@ public class FlowField {
         cellRadius = _cellRadius;
         cellDiameter = cellRadius * 2f;
         gridSize = _gridSize;
-    
-    
+
+        //grid = _grid;
+        CreateGrid();
+
+
     }
 
     public void CreateGrid() {
@@ -44,6 +47,21 @@ public class FlowField {
     }
 
     //If adding new objects - add them here
+
+
+    public FlowField generateField(Cell _dest){
+        CreateCostField();
+        CreateIntegrationField(_dest);
+        CreateFlowField();
+
+        return this;
+
+    }
+
+
+
+
+
     public void CreateCostField() {
 
         Vector3 cellHalfExtents = Vector3.one * cellRadius;

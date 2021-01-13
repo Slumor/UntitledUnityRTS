@@ -10,18 +10,44 @@ public class GridController : MonoBehaviour
     public FlowField curFlowField;
     public GridDebug gridDebug;
 
+    public Cell[,] grid { get; private set; }
+    private float cellDiameter;
 
-
+    public void Awake() {
+        cellDiameter = cellRadius * 2f;
+    }
     public void InitializeFlowField() {
 
         curFlowField = new FlowField(cellRadius, gridSize);
-        curFlowField.CreateGrid();
+        CreateGrid();
+        curFlowField.grid = grid;
         //gridDebug.SetFlowField(curFlowField);
 
 
     }
 
- 
 
-    
+    public void CreateGrid() {
+
+        grid = new Cell[gridSize.x, gridSize.y];
+
+        for (int x = 0; x < gridSize.x; x++) {
+
+            for (int y = 0; y < gridSize.y; y++) {
+
+
+                Vector3 WorldPos = new Vector3(cellDiameter * x + cellRadius, 0, cellDiameter * y + cellRadius);
+                grid[x, y] = new Cell(WorldPos, new Vector2Int(x, y));
+
+            }
+
+
+        }
+
+
+
+    }
+
+
+
 }
