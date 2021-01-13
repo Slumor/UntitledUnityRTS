@@ -8,10 +8,12 @@ public class Gathering : MonoBehaviour
     [SerializeField] private Depot depot;
 
     private Worker worker;
-    private Vector3 goldDest;
+    private GameObject goldDest;
     private Vector3 depotDest;
 
     private moveAI moveai;
+
+    private GameObject sys;
 
 
     bool Mrunning;
@@ -44,9 +46,10 @@ public class Gathering : MonoBehaviour
         moveai = gameObject.GetComponent<moveAI>();
         worker = gameObject.GetComponent<Worker>();
 
+        goldDest = null;
 
+        sys = GameObject.Find("EventSystem");
 
-        goldDest = goldnode.gatherPoint;
         depotDest = depot.gatherPoint;
 
     }
@@ -54,16 +57,13 @@ public class Gathering : MonoBehaviour
     //Probably want to put this somewhere better
     private FlowField genFlowField(Vector3 desti) {
 
-        GameObject sys = GameObject.Find("EventSystem");
-
+       
         gridController = sys.GetComponent<GridController>();
 
-        
 
         FlowField flowfield = gridController.InitializeFlowField(desti);
 
         
-
         return flowfield;
 
 
@@ -117,7 +117,22 @@ public class Gathering : MonoBehaviour
 
                 if (!moving && !moveai.arrived) {
 
-                    moveTo(goldDest);
+                    if (goldDest == null) {
+
+                        goldDest = closestGoldNode();
+                        goldnode = goldDest.GetComponent<GoldNode>();
+
+                        
+                        
+                    
+                    }
+                    Vector3 goldGather = goldnode.gatherPoint;
+
+
+
+                    moveTo(goldGather);
+
+
 
                 }
                 
@@ -150,15 +165,16 @@ public class Gathering : MonoBehaviour
 
                     moveTo(depotDest);
 
+
+
                 }
+
 
                 if (moveai.arrived) {
                     moving = false;
 
                     if (!Drunning) { StartCoroutine(depositing());}
-                    
-                
-                
+                                  
                 
                 }
 
@@ -181,6 +197,39 @@ public class Gathering : MonoBehaviour
         
         }
         
+    }
+
+    public GameObject closestGoldNode() {
+
+        NodeTracker t = sys.GetComponent<NodeTracker>();
+
+        List<GameObject> goldNodes = t.goldNodes;
+
+        GameObject bestNode = null;
+        float closestDistanceSqr = Mathf.Infinity;
+
+        foreach (GameObject Node in goldNodes) {
+
+            Vector3 directionToNode = Node.transform.position - transform.position;
+
+            float dSqrToNode = directionToNode.sqrMagnitude;
+
+            if (dSqrToNode < closestDistanceSqr) {
+
+                closestDistanceSqr = dSqrToNode;
+                bestNode = Node;
+
+            
+            }
+
+        
+        }
+
+
+
+
+        return bestNode;
+
     }
 
     IEnumerator mining() {

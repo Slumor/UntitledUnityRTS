@@ -33,6 +33,7 @@ public class Worker : Char {
     // Update is called once per frame
     void Update(){
         switch (state) {
+
             default:
             case State.idle:
                 break;
@@ -45,16 +46,7 @@ public class Worker : Char {
 
                 break;
 
-            case State.moving:
-
-                if (ai.state != moveAI.State.Moving) {
-                    ai.state = moveAI.State.Moving;
-
-                }
-
-
-                break;
-
+          
 
         
         }
