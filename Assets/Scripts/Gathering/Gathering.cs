@@ -58,16 +58,11 @@ public class Gathering : MonoBehaviour
 
         gridController = sys.GetComponent<GridController>();
 
-        gridController.InitializeFlowField();
+        
 
-        FlowField flowfield = gridController.curFlowField;
+        FlowField flowfield = gridController.InitializeFlowField(desti);
 
-        flowfield.CreateCostField();
-
-        Cell destinationCell = flowfield.GetCellFromWorldPos(desti);
-
-        flowfield.CreateIntegrationField(destinationCell);
-        flowfield.CreateFlowField();
+        
 
         return flowfield;
 

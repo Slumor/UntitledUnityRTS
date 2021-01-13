@@ -16,11 +16,22 @@ public class GridController : MonoBehaviour
     public void Awake() {
         cellDiameter = cellRadius * 2f;
     }
-    public void InitializeFlowField() {
+
+
+    public FlowField InitializeFlowField(Vector3 destination) {
 
         curFlowField = new FlowField(cellRadius, gridSize);
         CreateGrid();
         curFlowField.grid = grid;
+
+        curFlowField.CreateCostField();
+
+        Cell desti = curFlowField.GetCellFromWorldPos(destination);
+
+        curFlowField.CreateIntegrationField(desti);
+        curFlowField.CreateFlowField();
+
+        return curFlowField;
         //gridDebug.SetFlowField(curFlowField);
 
 

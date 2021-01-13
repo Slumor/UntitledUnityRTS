@@ -56,19 +56,9 @@ public class GlobalMovement : MonoBehaviour {
                     //Flow field handling
                     
 
-                    gridController.InitializeFlowField();
+                    flowfield = gridController.InitializeFlowField(hit.point);
 
-                    flowfield = gridController.curFlowField;
-
-                    flowfield.CreateCostField();
-
-                    Cell destinationCell = flowfield.GetCellFromWorldPos(hit.point);
-
-                    flowfield.CreateIntegrationField(destinationCell);
-                    flowfield.CreateFlowField();
-            
-                    
-
+ 
                     Unit unit = gameobj.GetComponent<Unit>();
 
                     ///Don't like this
