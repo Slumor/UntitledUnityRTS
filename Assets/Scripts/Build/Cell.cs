@@ -8,6 +8,8 @@ public class Cell {
     public byte cost;
     public ushort bestCost;
 
+    public bool occupied;
+
     public GridDirection bestDirection;
 
     public Cell(Vector3 _worldPos, Vector2Int _gridIndex) {
@@ -16,7 +18,7 @@ public class Cell {
         cost = 1;
         bestCost = ushort.MaxValue;
         bestDirection = GridDirection.None;
-
+        occupied = false;
 
     }
 
